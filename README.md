@@ -2,7 +2,7 @@
 A Javascript (p5.js) project visualizes NYC Subway and Taxi data.
 
 <p align="center">
-	![](./readme/icmdemo.gif)
+	<img src="./readme/icmdemo.gif" width="720">
 </p>
 
 ## Data Source
@@ -13,7 +13,7 @@ Due to the difficulties of getting realtime traffic data, we found an example fr
 ### Subway Data
 For the subway data, MTA provides realtime position data for all the trains. Unfortunately, it is not in JSON format. It is in a data format called GTFS instead. GTFS stands for_General Transit Feed Specification_, which is made by Google. It uses with protocol buffer to encode the data feed into a form that is even lighter than JSON format. We found a Python solution from [GTFS Realtime Downloader](https://github.com/harrytruong/gtfs_realtime_json) that can decode the GTFS file into JSON format.
 
-![](./readme/traindata.png)
+<img src="./readme/traindata.png" width="360">
 
 * The train position data is in the folder _20171204_2100_
 * Subway station position data is in _Station.csv_
