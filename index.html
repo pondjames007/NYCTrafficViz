@@ -5,11 +5,48 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
     <script src="https://unpkg.com/mappa-mundi/dist/mappa.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 
     <meta charset="utf-8" />
   </head>
   <body>
-    <div id="map"></div>
+    <div id="project"><h1>NYC Traffic</h1><hr class="horizontal-rule"><h2>Subway & Taxi Status</h2></div>
+    <div id="icon"><img src="ic_schedule_white_48px.svg" height="28" width="28"></div>
+    <div id="time"></div>
+
+    <div class="dropdown">
+      <button onclick="showList()" class="dropbtn">TRAINS</button>
+      <div id="myDropdown" class="dropdown-content">
+        <form class="form" action="">
+          <label class="container"><input type="checkbox" name="all" value="all" checked onClick="checkAll(this)"> ALL Trains<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="1" checked onClick="uncheckAll(this)"> Train 1<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="2" checked onClick="uncheckAll(this)"> Train 2<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="3" checked onClick="uncheckAll(this)"> Train 3<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="4" checked onClick="uncheckAll(this)"> Train 4<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="5" checked onClick="uncheckAll(this)"> Train 5<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="6" checked onClick="uncheckAll(this)"> Train 6<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="7" checked onClick="uncheckAll(this)"> Train 7<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="A" checked onClick="uncheckAll(this)"> Train A<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="C" checked onClick="uncheckAll(this)"> Train C<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="E" checked onClick="uncheckAll(this)"> Train E<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="B" checked onClick="uncheckAll(this)"> Train B<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="D" checked onClick="uncheckAll(this)"> Train D<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="F" checked onClick="uncheckAll(this)"> Train F<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="M" checked onClick="uncheckAll(this)"> Train M<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="N" checked onClick="uncheckAll(this)"> Train N<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="Q" checked onClick="uncheckAll(this)"> Train Q<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="R" checked onClick="uncheckAll(this)"> Train R<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="W" checked onClick="uncheckAll(this)"> Train W<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="G" checked onClick="uncheckAll(this)"> Train G<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="L" checked onClick="uncheckAll(this)"> Train L<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="S" checked onClick="uncheckAll(this)"> Train S<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="J" checked onClick="uncheckAll(this)"> Train J<span class="checkmark"></span></label><br>
+          <label class="container"><input type="checkbox" name="train" value="Z" checked onClick="uncheckAll(this)"> Train Z<span class="checkmark"></span></label>
+        </form>
+      </div>
+    </div>
+
+
     <script src="main.js"></script>
     <script src="Traffic.js"></script>
     <script src="MtaShape.js"></script>

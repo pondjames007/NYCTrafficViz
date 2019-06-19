@@ -5,6 +5,7 @@ class MtaShape{
     this.route = coord;
     this.parent = 0;
     this.color = "#FFFFFF";
+    this.draw = false;
   }
 
   decideColor(){
@@ -73,7 +74,7 @@ class MtaShape{
     beginShape()
       for(i in this.route){
         var pixel = myMap.latLngToPixel(this.route[i][0], this.route[i][1]);
-        
+
         if (c%10 == 0 || c == this.route.length-1) {
         vertex(pixel.x, pixel.y);
         }

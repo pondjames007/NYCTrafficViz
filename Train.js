@@ -11,6 +11,8 @@ class Train{
     this.coordinateCount = 0;
     this.delta = 0;
     this.drawProgressCount = 0;
+    this.draw = true;
+    this.currentStop = "";
   }
 
   init(vehicle, stopId, globalTime){
@@ -151,6 +153,8 @@ class Train{
       }
 
     }
+
+    this.currentStop = stopIdx;
     // console.log(this.tripId);
     // console.log(stopIdx+"    "+ mtaRouteSets[tripIdx[0]][tripIdx[1]].route.length);
     // console.log(this.points);

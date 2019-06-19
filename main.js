@@ -73,10 +73,12 @@ var trainCycle = 0;
 
 
 //Time Display
-
+var second = 0;
+var minutes = 0;
 //Choose Route Display
 var chooseDisplay;
 var chosen;
+
 
 function preload(){
 
@@ -132,7 +134,7 @@ function draw(){
   if(startDraw == true){
     mtaRouteSets.forEach(function(element){
       element.forEach(function(e){
-        if(e.parent == 1){
+        if(e.draw == true){
         //if(e.id == "W"){
         //if(e.tripId == "R..N93R"){
           e.drawRoute();
@@ -144,10 +146,38 @@ function draw(){
      drawTrain();
   }
 
-  // if(buildingFlag){
-  //   //addBuildings();
-  //   buildingFlag = false;
-  // }
+  if(buildingFlag){
+    addBuildings();
+    buildingFlag = false;
+  }
+
+  if(minutes < 30){
+    if(second < 60){
+      second++;
+    }
+    else{
+      minutes++;
+      second = 0;
+    }
+  }
+  else{
+    minutes = 0;
+  }
+  if(second < 10){
+    var secStr = "0"+second;
+  }
+  else{
+    var secStr = second;
+  }
+  if(minutes < 10){
+    var minStr = "0"+minutes;
+  }
+  else{
+    var minStr = minutes;
+  }
+  document.getElementById("time").innerHTML = "21 : "
+  + minStr + " : " + secStr;
+
 }
 
 
@@ -209,6 +239,7 @@ function mtaRouteAna(){
               return b.route.length - a.route.length;
             });
             mtaCoordinate[0].parent = 1;
+            mtaCoordinate[0].draw = true;
             // for(var i = 1; i < mtaCoordinate.length; i++){
             //   if(mtaCoordinate[i].route.length != mtaCoordinate[i-1].route.length)
             //     mtaCoordinate[i].parent = 1;
@@ -321,13 +352,13 @@ function gtfsAna(){
     return a.timeStamp[0] - b.timeStamp[0];
   });
   //console.log(sequentialTrains);
-   console.log("train FirstTime: ")
-  // var c=0;
-  sequentialTrains.forEach(function(e){
-    //if(e.timeStamp[0] > 1512439200)
-      console.log(e.tripId+ " "+e.timeStamp[0]);
-    //  c++;
-  });
+  //  console.log("train FirstTime: ")
+  // // var c=0;
+  // sequentialTrains.forEach(function(e){
+  //   //if(e.timeStamp[0] > 1512439200)
+  //     console.log(e.tripId+ " "+e.timeStamp[0]);
+  //   //  c++;
+  // });
   // console.log(c);
 
 }
@@ -339,7 +370,7 @@ function drawTrain(){
 
   sequentialTrains.forEach(function(e){
     if(e.timeStamp[0]-START <= frameCount%1800 && e.timeStamp[e.timeStamp.length-1]-START >= frameCount%1800){
-      if(e.timeStamp[0] >= START){
+      if(e.timeStamp[0] >= START && e.draw == true){
         e.drawRoute(trainLogo[logoIdx[e.routeId]]);
       }
     }
@@ -349,7 +380,7 @@ function drawTrain(){
 function drawVisited(){
   mtaRouteSets.forEach(function(element){
     element.forEach(function(e){
-      if(e.parent == 1){
+      if(e.draw == true){
       //if(e.id == "FS" || e.id == "SI"){
       //if(e.tripId == ""){
         e.drawRoute();
@@ -494,4 +525,174 @@ function mtaDict(obj){
         this.items = {}
         this.length = 0;
     }
+}
+
+
+function showList() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+// window.onclick = function(event) {
+//   if (!event.target.matches('.dropbtn') && !event.target.matches("myDropdown")) {
+//
+//     var dropdowns = document.getElementsByClassName("dropdown-content");
+//     var i;
+//     for (i = 0; i < dropdowns.length; i++) {
+//       var openDropdown = dropdowns[i];
+//       if (openDropdown.classList.contains('show')) {
+//         openDropdown.classList.remove('show');
+//       }
+//     }
+//   }
+// }
+
+function checkAll(source) {
+  var checkboxes = document.getElementsByName('train');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+  if(source.checked == false){
+    mtaRouteSets.forEach(function(element){
+      element.forEach(function(e){
+        e.draw = false;
+      });
+    });
+
+    sequentialTrains.forEach(function(e){
+      e.draw = false;
+    });
+  }
+  else{
+    mtaRouteSets.forEach(function(element){
+      element.forEach(function(e){
+        if(e.parent == 1){
+          e.draw = true;
+        }
+      });
+    });
+
+    sequentialTrains.forEach(function(e){
+      e.draw = true;
+    });
+  }
+}
+
+function uncheckAll(source){
+  var allChk = document.getElementsByName('all');
+  var trainChk = document.getElementsByName('train');
+  var allChecked = false;
+
+  if(source.checked == false){
+    allChk[0].checked = false;
+
+    mtaRouteSets.forEach(function(element){
+      element.forEach(function(e){
+        if(e.id == source.value){
+          e.draw = false;
+        }
+        if(source.value == "S"){
+          if(e.id == "GS" || e.id == "FS" || e.id == "H" || e.id == "SI"){
+            e.draw = false;
+          }
+        }
+        else if(source.value == "W"){
+          if(e.id == "Q"){
+            e.draw = false;
+          }
+        }
+      });
+    });
+
+    sequentialTrains.forEach(function(e){
+      if(e.routeId == source.value){
+        e.draw = false;
+      }
+      if(source.value == "5"){
+        if(e.routeId == "5X"){
+          e.draw = false;
+        }
+      }
+      else if(source.value == "6"){
+        if(e.routeId == "6X"){
+          e.draw == false;
+        }
+      }
+      else if(source.value == "7"){
+        if(e.routeId == "7X"){
+          e.draw == false;
+        }
+      }
+      else if(source.value == "S"){
+        if(e.routeId == "GS" || e.routeId == "FS" || e.routeId == "H"){
+          e.draw == false;
+        }
+      }
+    });
+
+
+  }
+  else{
+    for(var i = 0; i < trainChk.length; i++){
+      if(trainChk[i].checked == false){
+        allChecked = false;
+        break;
+      }
+      else{
+        allChecked = true;
+      }
+    }
+    if(allChecked == true){
+      allChk[0].checked = true;
+    }
+
+
+    mtaRouteSets.forEach(function(element){
+      element.forEach(function(e){
+        if(e.id == source.value){
+          e.draw = true;
+        }
+        if(source.value == "S"){
+          if(e.id == "GS" || e.id == "FS" || e.id == "H" || e.id == "SI"){
+            e.draw = true;
+          }
+        }
+        else if(source.value == "W"){
+          if(e.id == "Q"){
+            e.draw = true;
+          }
+        }
+      });
+    });
+
+
+    sequentialTrains.forEach(function(e){
+      if(e.routeId == source.value){
+        e.draw = true;
+      }
+      if(source.value == "5"){
+        if(e.routeId == "5X"){
+          e.draw = true;
+        }
+      }
+      else if(source.value == "6"){
+        if(e.routeId == "6X"){
+          e.draw == true;
+        }
+      }
+      else if(source.value == "7"){
+        if(e.routeId == "7X"){
+          e.draw == true;
+        }
+      }
+      else if(source.value == "S"){
+        if(e.routeId == "GS" || e.routeId == "FS" || e.routeId == "H"){
+          e.draw == true;
+        }
+      }
+    });
+
+  }
+
+
 }
